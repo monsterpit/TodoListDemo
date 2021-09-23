@@ -10,13 +10,14 @@ import Foundation
 final class TodoListViewModel{
     private var context = PersistentStorage.shared.context
     var items = Box([TodoListItem]())
-    
+    var completion: (([TodoListItem]) -> ())?
     init(selectIndex: Int = 0){
         getTodoList(selectIndex: selectIndex)
     }
     
     func getTodoList(selectIndex: Int){
         items.value = PersistentStorage.shared.getAllSearchedItems(searchText: getCreatedAt(index: selectIndex))
+        completion?(items.value)
     }
     
     func addTask(title: String,desc: String?,selectIndex: Int){

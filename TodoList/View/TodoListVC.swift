@@ -24,7 +24,11 @@ class TodoListVC: UIViewController {
         todoListTableView.delegate = self
         todoListTableView.dataSource = self
         todoListTableView.register(UINib(nibName: TodoListTVC.reusableIdentifier, bundle: nil), forCellReuseIdentifier: TodoListTVC.reusableIdentifier)
-        todoListViewModel.items.bind { [weak self] _ in
+//        todoListViewModel.items.bind { [weak self] _ in
+//            guard let `self` = self else { return }
+//            self.todoListTableView.reloadData()
+//        }
+        todoListViewModel.completion = {[weak self] items in
             guard let `self` = self else { return }
             self.todoListTableView.reloadData()
         }
